@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {LoginPanel} from './LoginPanel/LoginPanel'
+import 'antd/dist/antd.css';
+import {ProductList} from "./MainPage/ProductList";
+import {useState} from "react";
+
+export type CartItemType = {
+    id: number;
+    category: string;
+    description: string;
+    image: string;
+    price: number;
+    title: string;
+    amount: number;
+};
 
 function App() {
+  const [authenticated, setAuthenticated] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="App">
+        <header className="App-header">
+          {!authenticated && <LoginPanel></LoginPanel>}
+          {authenticated && <ProductList></ProductList>}
+        </header>
+      </div>
   );
 }
 
