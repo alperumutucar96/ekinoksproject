@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.ant-table-wrapper {
+  width: 200vh;
+}
