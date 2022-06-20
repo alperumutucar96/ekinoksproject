@@ -17,6 +17,7 @@ export type CartItemType = {
     price: number;
     title: string;
     amount: number;
+    key: number;
 };
 
 // const getToken = async (): string => await (
@@ -48,18 +49,23 @@ function App() {
     ;
 
     const handleAddToCart = (clickedItem: CartItemType) => {
-        setCartItems((prev) => {
-            const isItemInCart = prev.find((item) => item.id === clickedItem.id);
-            if (isItemInCart) {
-                console.log(cartItems)
-                return prev.map((item) =>
-                    item.id === clickedItem.id
-                        ? {...item, amount: item.amount + 1}
-                        : item
-                );
-            }
-            return [...prev, {...clickedItem, amount: 1}];
-        });
+        // setCartItems((prev) => {
+        //     const isItemInCart = prev.find((item) => item.id === clickedItem.id);
+        //     if (isItemInCart) {
+        //         console.log(cartItems)
+        //         return prev.map((item) =>
+        //             item.id === clickedItem.id
+        //                 ? {...item, amount: item.amount + 1}
+        //                 : item
+        //         );
+        //     }
+        //     return [...prev, {...clickedItem, amount: 1}];
+        console.log(clickedItem)
+        // });
+        const arr=cartItems;
+        arr.push(clickedItem)
+        setCartItems([...arr])
+        console.log("Alper " + cartItems)
     };
 
     useEffect(() => {
@@ -67,7 +73,7 @@ function App() {
         if (authenticationKey === "eyJhbGciOiJIUzI1NiIsInR") {
             setAuthenticated(true)
         }
-        console.log(data)
+        // console.log(data)
         // getToken()
     });
     const [authenticated, setAuthenticated] = useState(false);

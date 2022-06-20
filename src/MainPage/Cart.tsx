@@ -16,6 +16,7 @@ export function Cart(props: any) {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+    // @ts-ignore
     return (
         <>
             <Button style={{float: "right", background: "green"}} type="primary" onClick={showModal}>
@@ -26,7 +27,18 @@ export function Cart(props: any) {
                     dataSource={props.cartItems}
                     renderItem={item => (
                         <List.Item>
+                            extra={
+                            <img
 
+                                width={80}
+                                alt="image"
+                                src={props.item.title}
+                            />
+                        }
+                            {/*<List.Item.Meta*/}
+                            {/*    title={<a href={props.item.title}>{item.title}</a>}*/}
+                            {/*    description={item.description}*/}
+                            {/*/>*/}
                         </List.Item>
                     )}
                 />

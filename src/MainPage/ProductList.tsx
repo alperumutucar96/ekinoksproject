@@ -1,6 +1,6 @@
 import {LikeOutlined, MessageOutlined, StarOutlined} from '@ant-design/icons';
 import {Avatar, Button, Form, Input, List, Space, Table} from 'antd';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ColumnsType} from "antd/lib/table";
 
 
@@ -17,6 +17,11 @@ export type CartItemType = {
 
 
 export function ProductList(props: any) {
+    // const [selectedRow, setSelectedRow] = useState()
+    const [data, setData] = useState([] )
+    useEffect(() => {
+        setData(props.data)
+    })
     const columns: ColumnsType<CartItemType> = [
         {
             title: 'ID',
@@ -27,7 +32,7 @@ export function ProductList(props: any) {
         {
             title: 'Image of the Product',
             dataIndex: 'image',
-            key: 'id',
+            key: 'image',
             render: text => <img
                 height={100}
                 alt="image"
@@ -37,14 +42,14 @@ export function ProductList(props: any) {
         {
             title: 'Title',
             dataIndex: 'title',
-            key: 'id',
+            key: 'title',
             sorter: true,
             render: (name) => `${name}`
         },
         {
             title: 'Category',
             dataIndex: 'category',
-            key: 'id',
+            key: 'category',
             filters: [{text: "Electronics", value: "electronics"},
                 {text: "Jewelery", value: "jewelery"},
                 {text: "Men's clothing", value: "men's clothing"},
@@ -54,26 +59,28 @@ export function ProductList(props: any) {
         {
             title: 'Price',
             dataIndex: 'price',
-            key: 'id',
+            key: 'price',
             sorter: (a, b) => a.price - b.price,
         },
         {
             title: 'Action',
-            key: 'id',
+            key: 'action',
             fixed: 'right',
             width: 100,
-            render: () => <a onClick={props.handleAddToCart}>Add To Cart</a>,
+            render: (params) => <Button onClick={(e)=>props.handleAddToCart(params)}>Add To Cart</Button>,
         },
     ];
 
     return (
         <Table columns={columns}
-               // rowKey={props.data[0].id}
                expandable={{
                    expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
-                    // rowExpandable: record => record.id == 1,
+                     // rowExpandable: record => record.id == record.id,
                }} pagination={{pageSize: 5}}
-               dataSource={props.data}/>
+               dataSource={data}/>
+            // .map((i :number, data: CartItemType ) => ({...data, key:i+1}))
+
+
         // <List
         //     itemLayout="vertical"
         //     size="large"
